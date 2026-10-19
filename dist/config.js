@@ -1,7 +1,6 @@
 /* EDITA TU INVITACIÓN AQUÍ. Se publica sin instalar ni compilar. */
 window.INVITACION = {
-  nombre: "Héctor", // Nombre corto: se muestra en grande en el póster y en la voz.
-  nombreCompleto: "Héctor Alfonso García Heredia", // Subtítulo, WhatsApp y calendario.
+  nombre: "Héctor Alfonso", // Se muestra en el póster, la voz, WhatsApp y calendario.
   edad: 4,
   titulo: "¡El partido del año!",
   mensaje: "Fútbol, juegos y mucha diversión. Ponte la camiseta y ven a celebrar conmigo.",
