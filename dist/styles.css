@@ -22,4 +22,18 @@ button,input{font:inherit}button,a,input{touch-action:manipulation}a{color:inher
 
 .hero-message{font-size:12px;line-height:1.7;color:#a0b3ce;max-width:335px;margin:0 auto 23px;padding-inline:5px}
 .hero-fullname{position:relative;z-index:5;margin:0 auto 14px;font:400 clamp(22px,7vw,34px)/1.05 var(--font-title);letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-shadow:0 2px 18px #0008;animation:rise-in 1.1s .6s var(--ease) both}@media(max-width:360px){.hero-fullname{font-size:20px}}
-h1.is-long{font-size:clamp(88px,26vw,170px);line-height:.86}@media(max-width:360px){h1.is-long{font-size:84px}}
+/* Escena: ambos jugadores recortados a la cintura dentro del póster */
+.players-scene{overflow:hidden}
+.players-scene:after{display:none}
+.character>img{height:100%;object-fit:cover;object-position:50% 0;-webkit-mask-image:linear-gradient(#000 64%,transparent 97%);mask-image:linear-gradient(#000 64%,transparent 97%)}.player-ronaldo>img{width:118%;left:-17%}
+/* Nombre de dos palabras: dos líneas legibles arriba de los jugadores */
+h1.is-long{font-size:clamp(70px,21vw,150px);line-height:.84;letter-spacing:0}
+.players-scene.name-long{aspect-ratio:1/1.2}
+.name-long .player-haaland{top:178px;height:calc(100% - 178px)}
+.name-long .player-ronaldo{top:170px;height:calc(100% - 170px)}
+.name-long .age-badge{top:60%}
+.voice-caption{margin-top:-6px}
+@media(max-width:360px){.name-long .player-haaland{top:160px;height:calc(100% - 160px)}.name-long .player-ronaldo{top:152px;height:calc(100% - 152px)}}
+@media(min-width:600px){.name-long .player-haaland{top:300px;height:calc(100% - 300px)}.name-long .player-ronaldo{top:290px;height:calc(100% - 290px)}.players-scene.name-long{aspect-ratio:1/1.25}}
+.hero-name-layer>span{margin-bottom:12px}
+@media(min-width:600px){.hero-name-layer>span{margin-bottom:22px}.players-scene{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}}

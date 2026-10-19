@@ -10,7 +10,10 @@
   const fields = ["nombre", "nombreCompleto", "edad", "titulo", "mensaje", "lugar", "direccion", "indicacion", "vestimenta", "fechaLimite"];
   fields.forEach(key => document.querySelectorAll('[data-field="' + key + '"]').forEach(el => { el.textContent = cfg[key]; }));
   document.querySelectorAll(".hero-fullname").forEach(el => { el.hidden = !showFull; });
-  if (/\s/.test(cfg.nombre.trim()) || cfg.nombre.length > 8) $("hero-name").classList.add("is-long");
+  if (/\s/.test(cfg.nombre.trim()) || cfg.nombre.length > 8) {
+    $("hero-name").classList.add("is-long");
+    document.querySelector(".players-scene").classList.add("name-long");
+  }
   document.title = cfg.nombre + " · El partido del año";
   Object.entries(cfg.colores || {}).forEach(([key, value]) => {
     const cssName = { acento: "--accent", fondo: "--dark", dorado: "--gold", papel: "--paper" }[key];
