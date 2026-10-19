@@ -5,7 +5,8 @@
   const $ = id => document.getElementById(id);
   const demo = cfg.demo !== false;
   let currentMessage = "", toastTimer, activeVoice = null, voiceToken = 0, activeAudio = null;
-  const fields = ["nombre", "edad", "titulo", "mensaje", "lugar", "direccion", "indicacion", "vestimenta", "fechaLimite"];
+  if (!cfg.nombreCompleto) cfg.nombreCompleto = cfg.nombre;
+  const fields = ["nombre", "nombreCompleto", "edad", "titulo", "mensaje", "lugar", "direccion", "indicacion", "vestimenta", "fechaLimite"];
   fields.forEach(key => document.querySelectorAll('[data-field="' + key + '"]').forEach(el => { el.textContent = cfg[key]; }));
   document.title = cfg.nombre + " · El partido del año";
   Object.entries(cfg.colores || {}).forEach(([key, value]) => {
@@ -58,7 +59,7 @@
     const data = core.calendar(cfg);
     if (!data) { toast("Revisa la fecha y el horario de la invitación."); return; }
     const url = URL.createObjectURL(new Blob([data], { type: "text/calendar;charset=utf-8" }));
-    const a = document.createElement("a"); a.href = url; a.download = "cumple-" + cfg.nombre.toLowerCase().replace(/[^a-z0-9]/g, "-") + ".ics";
+    const a = document.createElement("a"); a.href = url; a.download = "cumple-" + cfg.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "-") + ".ics";
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast("Abre el archivo descargado para agregar la fiesta a tu calendario.");
   });

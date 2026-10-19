@@ -9,7 +9,7 @@ Base estática para celular con Haaland y Cristiano Ronaldo. No requiere instala
 - Fecha: sábado 31 de octubre de 2026.
 - Horario: 4:00 a 8:00 p. m. (America/Chihuahua).
 - Lugar: Piccolo Xtremo Reliz.
-- Nombre y edad de ejemplo: Mateo, 5 años.
+- Festejado: Héctor Alfonso García Heredia, 4 años (`nombre` corto "Héctor" para el póster y la voz; `nombreCompleto` para subtítulo, WhatsApp y calendario).
 - La confirmación está en modo de demostración hasta añadir el WhatsApp real del organizador.
 
 ## Personalizar

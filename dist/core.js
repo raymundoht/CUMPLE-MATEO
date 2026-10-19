@@ -14,10 +14,11 @@
     return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
   }
   function rsvpMessage(event, answer) {
+    const who = event.nombreCompleto || event.nombre;
     if (answer.attending) {
-      return `¡Hola! Soy ${answer.name}. Confirmo mi asistencia al cumpleaños de ${event.nombre}.\nSeremos ${answer.guests} ${answer.guests === 1 ? "persona" : "personas"} en total.\n¡Nos vemos en la fiesta!`;
+      return `¡Hola! Soy ${answer.name}. Confirmo mi asistencia al cumpleaños de ${who}.\nSeremos ${answer.guests} ${answer.guests === 1 ? "persona" : "personas"} en total.\n¡Nos vemos en la fiesta!`;
     }
-    return `¡Hola! Soy ${answer.name}. Gracias por invitarme al cumpleaños de ${event.nombre}. Esta vez no podré asistir. ¡Que disfruten mucho la fiesta!`;
+    return `¡Hola! Soy ${answer.name}. Gracias por invitarme al cumpleaños de ${who}. Esta vez no podré asistir. ¡Que disfruten mucho la fiesta!`;
   }
   function calendar(event) {
     const start = new Date(event.fecha), end = new Date(event.fechaFin);
@@ -28,7 +29,7 @@
     const fold = line => { let result = "", length = 0; for (const c of line) { const size = encoder.encode(c).length; if (length + size > 75) { result += "\r\n "; length = 1; } result += c; length += size; } return result; };
     return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Invitacion Futbol//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
       "UID:invitacion-" + start.getTime() + "@invitacion.local", "DTSTAMP:" + stamp(new Date()), "DTSTART:" + stamp(start), "DTEND:" + stamp(end),
-      "SUMMARY:" + escape("Cumpleaños de " + event.nombre), "LOCATION:" + escape(event.lugar + ", " + event.direccion),
+      "SUMMARY:" + escape("Cumpleaños de " + (event.nombreCompleto || event.nombre)), "LOCATION:" + escape(event.lugar + ", " + event.direccion),
       "DESCRIPTION:" + escape(event.mensaje + "\n" + event.ubicacionMaps), "END:VEVENT", "END:VCALENDAR"].map(fold).join("\r\n") + "\r\n";
   }
   const api = { countdown, whatsappUrl, rsvpMessage, calendar, pad };
