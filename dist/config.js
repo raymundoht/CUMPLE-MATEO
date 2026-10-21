@@ -16,10 +16,10 @@ window.INVITACION = {
   maxPersonas: 12,
   // Número internacional del organizador sin +, espacios ni guiones.
   // En México: 52 seguido de los 10 dígitos. No uses un número ficticio.
-  whatsapp: "",
+  whatsapp: "526141002989",
   // Cambia a false cuando hayas añadido el WhatsApp real.
   // La demo no envía respuestas; se pueden probar y copiar.
-  demo: true,
+  demo: false,
   colores: { acento: "#e0bd70", fondo: "#070c17", dorado: "#e0bd70", papel: "#f5f7fc" },
   personajes: {
     haaland: {
