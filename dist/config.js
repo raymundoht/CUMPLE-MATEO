@@ -20,22 +20,21 @@ window.INVITACION = {
   // Cambia a false cuando hayas añadido el WhatsApp real.
   // La demo no envía respuestas; se pueden probar y copiar.
   demo: false,
-  // Voces de los personajes desactivadas por el momento.
-  // Cámbialo a true cuando agregues los archivos de audio en cada personaje (campo "audio").
-  voces: false,
+  // Voces de los personajes activadas con los audios de Haaland y Cristiano.
+  voces: true,
   colores: { acento: "#e0bd70", fondo: "#070c17", dorado: "#e0bd70", papel: "#f5f7fc" },
   personajes: {
     haaland: {
       nombre: "Haaland",
       frase: "¡El partido de {nombre} está por comenzar! Estás invitado a un cumpleaños lleno de fútbol, juegos y diversión. ¡Ponte la camiseta y ven a celebrar!",
-      audio: "", // Opcional: "assets/haaland.mp3". Narración, no voz real del jugador.
+      audio: "assets/haland.mp3",
       tono: 1,
       velocidad: 1
     },
     ronaldo: {
       nombre: "Cristiano",
       frase: "¡Prepárate para celebrar! La cita es el treinta y uno de octubre, de cuatro a ocho de la tarde, en Piccolo Extremo Reliz. ¡Mira la ubicación y confirma tu asistencia!",
-      audio: "",
+      audio: "assets/cr7.mp3",
       tono: 1.1,
       velocidad: 1
     }

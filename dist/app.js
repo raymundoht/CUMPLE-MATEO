@@ -82,6 +82,7 @@
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     if (activeVoice) setSpeaking(activeVoice, false);
     activeVoice = null; $("stop-voice").hidden = true;
+    $("voice-caption-text").innerHTML = '<svg class="icon"><use href="#icon-sound"/></svg>Toca a un jugador y escucha la invitación.';
   }
   function speakOnDevice(id, token) {
     const character = cfg.personajes[id];
@@ -131,8 +132,9 @@
       if (character.audio) {
         const audio = new Audio(character.audio); activeAudio = audio;
         audio.onplay = () => { if (token === voiceToken) setSpeaking(id, true); };
-        audio.onended = () => { if (token === voiceToken) { setSpeaking(id, false); activeVoice = null; activeAudio = null; } };
-        audio.play().catch(() => { if (token === voiceToken) { activeAudio = null; speakOnDevice(id, token); } });
+        audio.onended = () => { if (token === voiceToken) stopVoice(); };
+        audio.onerror = () => { if (token === voiceToken) stopVoice(); };
+        audio.play().catch(() => { if (token === voiceToken) stopVoice(); });
       } else speakOnDevice(id, token);
     });
   });
