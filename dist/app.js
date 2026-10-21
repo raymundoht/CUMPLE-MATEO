@@ -159,9 +159,26 @@
   }));
   $("guest-name").addEventListener("input", () => $("guest-name").setCustomValidity(""));
   if (!demo) {
-    $("rsvp-submit-text").textContent = "Preparar confirmación";
-    $("form-note").textContent = "Al continuar podrás enviar tu respuesta por WhatsApp.";
+    $("rsvp-submit-text").textContent = "Confirmar asistencia por WhatsApp";
+    $("form-note").textContent = "Al presionar se abrirá WhatsApp con tu confirmación lista.";
+    if (cfg.whatsapp && $("direct-wa-link")) {
+      const defaultMsg = "¡Hola! Quiero confirmar mi asistencia al cumpleaños de " + (cfg.nombreCompleto || cfg.nombre) + ".";
+      $("direct-wa-link").href = core.whatsappUrl(cfg.whatsapp, defaultMsg);
+    }
+  } else if ($("direct-wa-wrap")) {
+    $("direct-wa-wrap").hidden = true;
   }
+  document.querySelectorAll('a[href="#confirmar"]').forEach(btn => {
+    btn.addEventListener("click", event => {
+      const name = $("guest-name").value.trim();
+      if (name) {
+        event.preventDefault();
+        $("rsvp-form").requestSubmit();
+      } else {
+        setTimeout(() => { $("guest-name").focus(); }, 350);
+      }
+    });
+  });
   if (demo) {
     try {
       const previous = JSON.parse(localStorage.getItem("invitacion-futbol-" + cfg.fecha) || "null");
@@ -184,6 +201,17 @@
     currentMessage = core.rsvpMessage(cfg, answer);
     const wa = demo ? null : core.whatsappUrl(cfg.whatsapp, currentMessage);
     if (!demo && !wa) { toast("Falta configurar el WhatsApp del organizador. Tu respuesta aún no se envió."); return; }
+    stopVoice();
+    if (!demo && wa) {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = wa;
+      } else {
+        const win = window.open(wa, "_blank", "noopener,noreferrer");
+        if (!win) window.location.href = wa;
+      }
+      return;
+    }
     let saved = false;
     if (demo) { try { localStorage.setItem("invitacion-futbol-" + cfg.fecha, JSON.stringify(answer)); saved = true; } catch (_) {} }
     $("confirmation-eyebrow").textContent = demo ? "RESPUESTA DE EJEMPLO" : "UN PASO MÁS";
@@ -195,7 +223,6 @@
     $("whatsapp-send").hidden = demo;
     if (wa) $("whatsapp-send").href = wa;
     $("confirmation-disclaimer").textContent = demo ? "Esta demostración no envía la respuesta a un organizador." : "La respuesta se envía cuando tú confirmas el mensaje en WhatsApp.";
-    stopVoice();
     $("confirmation-dialog").showModal(); document.body.classList.add("modal-open");
   });
   $("dialog-close").addEventListener("click", () => $("confirmation-dialog").close());
