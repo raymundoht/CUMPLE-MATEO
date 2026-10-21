@@ -108,10 +108,19 @@
     window.invitacionUtterance = utterance;
     speechSynthesis.speak(utterance);
   }
+  const voicesEnabled = Boolean(cfg.voces);
+  if (!voicesEnabled) document.body.classList.add("voices-off");
   Object.entries(cfg.personajes).forEach(([id, character]) => {
     character.frase = character.frase.replaceAll("{nombre}", cfg.nombre);
     const el = $(id); if (!el) return;
-    document.querySelector('[data-character-name="' + id + '"]').textContent = character.nombre;
+    const nameEl = document.querySelector('[data-character-name="' + id + '"]');
+    if (nameEl) nameEl.textContent = character.nombre;
+    if (!voicesEnabled) {
+      el.setAttribute("aria-label", character.nombre);
+      el.removeAttribute("aria-pressed");
+      el.tabIndex = -1;
+      return;
+    }
     el.setAttribute("aria-label", "Escuchar a " + character.nombre);
     el.addEventListener("click", () => {
       const same = activeVoice === id;
@@ -127,8 +136,10 @@
       } else speakOnDevice(id, token);
     });
   });
-  $("stop-voice").addEventListener("click", stopVoice);
-  document.addEventListener("visibilitychange", () => { if (document.hidden) stopVoice(); });
+  if (voicesEnabled) {
+    $("stop-voice").addEventListener("click", stopVoice);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) stopVoice(); });
+  }
   const countInput = $("guest-count"), max = Number(cfg.maxPersonas) > 0 ? Math.floor(Number(cfg.maxPersonas)) : 12;
   countInput.max = max;
   function attending() { return document.querySelector('input[name="asistencia"]:checked').value === "si"; }

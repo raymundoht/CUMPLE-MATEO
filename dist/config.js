@@ -20,6 +20,9 @@ window.INVITACION = {
   // Cambia a false cuando hayas añadido el WhatsApp real.
   // La demo no envía respuestas; se pueden probar y copiar.
   demo: false,
+  // Voces de los personajes desactivadas por el momento.
+  // Cámbialo a true cuando agregues los archivos de audio en cada personaje (campo "audio").
+  voces: false,
   colores: { acento: "#e0bd70", fondo: "#070c17", dorado: "#e0bd70", papel: "#f5f7fc" },
   personajes: {
     haaland: {
